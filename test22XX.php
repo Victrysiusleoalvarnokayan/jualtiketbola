@@ -7,4 +7,3 @@ echo "Selamat datang, " . $_SESSION['user'];
 ?>
 
 <a href="logout.php">Logout</a>
-hvvjbj
