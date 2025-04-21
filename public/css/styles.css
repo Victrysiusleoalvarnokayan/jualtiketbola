@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    width: 100%;
+    background-color: #f7f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 10px;
+}
+
+body::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://cdn0-production-images-kly.akamaized.net/Fz6QQ-xREHw2_rQFcShN1ljNuDY=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/3194445/original/027995900_1596079993-lein-5265194_1280.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    z-index: -1;
+}
+
+.wrapper {
+    max-width: 300px;
+    width : 100%;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ffffff80;
+    backdrop-filter: blur(8px);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+h2{
+    font-size: 2.5 rem;
+    margin-bottom: 20px;
+    color: #fcfcfc;
+}
+
+.input-field {
+    position: relative;
+    border-bottom: 2px solid #ccc;
+    margin: 5px 0;
+}
+
+.input-field label{
+    position: absolute;
+    color: #fff;
+    top: 50%;
+    left:0;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.15s ease;
+    overflow: hidden;
+}
+
+.input-field input{
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.input-field input:focus~label,
+.input-field input:valid~label {
+    font-size: 0.8rem;
+    top: 10px;
+    transform: translateY(-120%);
+}
+
+
+.forget{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 25px 0 35px 0;
+    color: #fff;
+}
+
+#remember{
+    accent-color: #fff;
+}
+
+.forget label {
+    display: flex;
+    align-items: center;
+}
+
+.forget label p {
+    margin-left: 8px;
+}
+
+.wrapper a{
+    color: #efefef;
+    text-decoration: underline;
+}
+
+/* Gaya untuk select agar seragam dengan input lainnya */
+.input-field select {
+    width: 100%;
+    height: 40px;  /* Pastikan tinggi input dan select konsisten */
+    padding: 10px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    appearance: none; /* Hilangkan default dropdown */
+
+
+}
+
+/* Hover dan fokus */
+.input-field select:hover,
+.input-field select:focus {
+    outline: none;
+}
+
+
+button{
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+}
+
+.register{
+    text-align: center;
+    margin-top: 30px;
+    color: #fff;
+}

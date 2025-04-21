@@ -1,4 +1,3 @@
-<div>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,5 +26,3 @@
     </table>
 </body>
 </html>
-
-</div>
