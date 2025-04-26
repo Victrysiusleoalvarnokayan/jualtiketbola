@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Serenity Trails</title>
-    <script src="{{ asset('styles/tailwindcss3.4.1.js') }}"></script> 
+    <script src="<?php echo e(asset('styles/tailwindcss3.4.1.js')); ?>"></script> 
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Great+Vibes&display=swap" rel="stylesheet" />
 </head>
-<body class="min-h-screen bg-cover bg-center bg-[url('{{ asset('images/home.jpg') }}')]">
+<body class="min-h-screen bg-cover bg-center bg-[url('<?php echo e(asset('images/home.jpg')); ?>')]">
 
-    @include('header')
+    <?php echo $__env->make('header', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <!-- Menu -->
     <div class="flex space-x-8 items-center mx-auto pt-12 pb-12 justify-center">
@@ -29,3 +29,4 @@
 
 </body>
 </html>
+<?php /**PATH D:\laravel\jualtiketbola\resources\views/index.blade.php ENDPATH**/ ?>

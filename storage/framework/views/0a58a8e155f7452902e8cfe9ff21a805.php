@@ -6,7 +6,7 @@
     <title>Login</title>
 
     <!-- Tailwind CSS lokal dari public/styles -->
-    <script src="{{ asset('styles/tailwindcss3.4.1.js') }}"></script>
+    <script src="<?php echo e(asset('styles/tailwindcss3.4.1.js')); ?>"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -28,21 +28,23 @@
         <h1 class="text-2xl font-bold text-center text-primary mb-6">Login</h1>
 
         <!-- Pesan Error -->
-        @if(session('error'))
+        <?php if(session('error')): ?>
             <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-sm">
-                {{ session('error') }}
+                <?php echo e(session('error')); ?>
+
             </div>
-        @endif
+        <?php endif; ?>
 
         <!-- Pesan Sukses -->
-        @if(session('success'))
+        <?php if(session('success')): ?>
             <div class="bg-green-100 text-green-700 px-4 py-2 rounded mb-4 text-sm">
-                {{ session('success') }}
-            </div>
-        @endif
+                <?php echo e(session('success')); ?>
 
-        <form method="POST" action="{{ route('login.submit') }}" class="space-y-4">
-            @csrf
+            </div>
+        <?php endif; ?>
+
+        <form method="POST" action="<?php echo e(route('login.submit')); ?>" class="space-y-4">
+            <?php echo csrf_field(); ?>
 
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
@@ -76,3 +78,4 @@
 
 </body>
 </html>
+<?php /**PATH D:\laravel\jualtiketbola\resources\views/login.blade.php ENDPATH**/ ?>

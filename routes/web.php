@@ -1,44 +1,68 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request; // tambah ini biar request dikenali
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ListBarangController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JualanVinoController;
 
-// Route utama
-
-
-Route::get('/jualan_vino', [JualanVinoController::class, 'tampilkan'])->name('jualan.vino');
+// Route home
+Route::get('/', [JualanVinoController::class, 'tampilkan'])->name('home');
 
 // Route kontak
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
-// Route welcome
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
-
-// Route login
+// Tampilkan form login
 Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-Route::post('/login', function () {
-    return back()->with('error', 'Fitur login belum diaktifkan.');
+// Proses login
+Route::post('/login', function (Request $request) {
+    if ($request->email == 'admin@example.com' && $request->password == 'password') {
+        session(['user' => $request->email]);
+        return redirect()->route('home');
+    }
+
+    return back()->with('error', 'Email atau Password salah.');
 })->name('login.submit');
 
-// Route user dengan parameter
+// Logout
+Route::get('/logout', function () {
+    $message = 'Anda sudah logout.';
+
+    session()->flush(); // bersihkan semua session
+    session()->flash('success', $message); // buat pesan baru setelah flush
+
+    return redirect()->route('login');
+})->name('logout');
+use Illuminate\Support\Facades\Session;
+
+Route::get('/logout', function () {
+    // Simpan pesan success ke session dulu
+    Session::flash('success', 'Anda sudah logout.');
+
+    // Setelah itu, flush session kalau mau, atau cukup hapus user saja
+    session()->forget('user'); // contoh kalau mau selective hapus
+
+    // Redirect ke halaman login
+    return redirect()->route('login');
+})->name('logout');
+
+
+// Halaman lain
 Route::get('/user/{id}', function ($id) {
     return 'User dengan ID ' . $id;
 })->whereNumber('id')->name('user.profile');
 
-// 🟩 INDEX DILUAR GRUP ADMIN
 Route::get('/index', function () {
     return view('index');
 })->name('index');
 
-// Grup route admin
+Route::get('/vino', function () {
+    return view('vino');
+})->name('vino');
+
+// Admin route group
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
