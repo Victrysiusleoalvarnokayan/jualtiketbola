@@ -1,12 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request; // tambah ini biar request dikenali
+use Illuminate\Http\Request; 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JualanVinoController;
+use App\Http\Controllers\ProductController;
+
+Route::get('/list_product', [ProductController::class, 'index']);
+Route::get('/list', function () {
+    return view('layout.list');
+});
+
 
 // Route home
 Route::get('/', [JualanVinoController::class, 'tampilkan'])->name('home');
+Route::get('/', function () {
+    return view('pages.home');
+});
+
 
 // Route kontak
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
@@ -22,6 +33,7 @@ Route::post('/login', function (Request $request) {
         session(['user' => $request->email]);
         return redirect()->route('home');
     }
+    
 
     return back()->with('error', 'Email atau Password salah.');
 })->name('login.submit');

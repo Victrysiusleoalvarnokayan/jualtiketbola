@@ -1,0 +1,1 @@
+<p>&copy; <?php echo e(date('Y')); ?> My App</p><?php /**PATH D:\laravel\jualtiketbola\resources\views/components/footer.blade.php ENDPATH**/ ?>
