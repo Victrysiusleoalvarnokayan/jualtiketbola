@@ -1,89 +1,85 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request; 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\JualanVinoController;
-use App\Http\Controllers\ProductController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
-Route::get('/list_product', [ProductController::class, 'index']);
+// Route untuk tempat_ibadah langsung return view tanpa controller
+Route::get('/tempat_ibadah', function () {
+    return view('tempat_ibadah'); // Pastikan file resources/views/tempat_ibadah.blade.php ada
+});
+
+// Route daftar produk, menampilkan halaman produk langsung ( tanpa controller )
+Route::get('/list_product', function () {
+    // Jika Anda ingin menampilkan produk statis, misal
+    // Atau Anda bisa kembangkan logika lebih lanjut di sini
+    return view('list_product');
+});
+
+// Route menampilkan view layout.list
 Route::get('/list', function () {
     return view('layout.list');
 });
 
-
-// Route home
-Route::get('/', [JualanVinoController::class, 'tampilkan'])->name('home');
+// Route home, tampilkan halaman utama
 Route::get('/', function () {
     return view('pages.home');
-});
+})->name('home');
 
-
-// Route kontak
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+// Route kontak, tampilkan halaman kontak
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 // Tampilkan form login
 Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-// Proses login
+// Proses login sederhana tanpa controller
 Route::post('/login', function (Request $request) {
-    if ($request->email == 'admin@example.com' && $request->password == 'password') {
+    if ($request->email === 'admin@example.com' && $request->password === 'password') {
         session(['user' => $request->email]);
         return redirect()->route('home');
     }
-    
-
     return back()->with('error', 'Email atau Password salah.');
 })->name('login.submit');
 
-// Logout
+// Logout, hapus session user dan redirect ke login dengan flash message
 Route::get('/logout', function () {
-    $message = 'Anda sudah logout.';
-
-    session()->flush(); // bersihkan semua session
-    session()->flash('success', $message); // buat pesan baru setelah flush
-
-    return redirect()->route('login');
-})->name('logout');
-use Illuminate\Support\Facades\Session;
-
-Route::get('/logout', function () {
-    // Simpan pesan success ke session dulu
+    session()->forget('user');
     Session::flash('success', 'Anda sudah logout.');
-
-    // Setelah itu, flush session kalau mau, atau cukup hapus user saja
-    session()->forget('user'); // contoh kalau mau selective hapus
-
-    // Redirect ke halaman login
     return redirect()->route('login');
 })->name('logout');
 
-
-// Halaman lain
+// Halaman user dengan parameter ID angka
 Route::get('/user/{id}', function ($id) {
     return 'User dengan ID ' . $id;
 })->whereNumber('id')->name('user.profile');
 
+// Route menampilkan view index
 Route::get('/index', function () {
     return view('index');
 })->name('index');
 
+// Route menampilkan view vino
 Route::get('/vino', function () {
     return view('vino');
 })->name('vino');
 
-// Admin route group
+// Group route admin dengan prefix /admin dan nama prefix admin.
 Route::prefix('admin')->name('admin.')->group(function () {
+    // Dashboard admin
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
 
+    // Halaman users admin
     Route::get('/users', function () {
         return view('admin.users');
     })->name('users');
 
+    // Halaman login_view dengan middleware auth
     Route::get('/login_view', function () {
         return view('login_view');
     })->middleware('auth')->name('login_view');
